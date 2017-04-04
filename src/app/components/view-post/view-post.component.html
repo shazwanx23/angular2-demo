@@ -1,0 +1,22 @@
+<h1>VIEW POST COMPONENT</h1>
+
+<a class="btn btn-default" routerLink="/post">Back</a>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Post # {{post.id}} </h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+    	<div class="col-md-1">User ID:</div>
+    	<div class="col-md-9">{{post.userId}}</div>
+    </div>    
+    <div class="row">
+    	<div class="col-md-1">Title :</div>
+    	<div class="col-md-9">{{post.title}}</div>
+    </div>    
+    <div class="row">
+    	<div class="col-md-1">Body :</div>
+    	<div class="col-md-9">{{post.body}}</div>
+    </div>    
+  </div>
+</div>

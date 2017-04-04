@@ -1,0 +1,83 @@
+CRUD COMPONENT
+
+<div class="container well" *ngIf="user && isViewing">
+<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<div class="row" >
+		<div class="col-md-3"><label>First Name:</label></div>
+		<div class="col-md-7">{{user.firstName}}</div>
+	</div>	
+
+	<div class="row" >
+		<div class="col-md-3"><label>Last Name:</label></div>
+		<div class="col-md-7">{{user.lastName}}</div>
+	</div>	
+
+	<div class="row" >
+		<div class="col-md-3"><label>Email:</label></div>
+		<div class="col-md-7">{{user.email}}</div>
+	</div>	
+</div>
+
+<div class="container" *ngIf="isEditing">
+	<h4>Edit User</h4>
+	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<form [formGroup]="form" (ngSubmit)="update(form.value)">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">First Name:</label>
+	    <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Last Name: </label>
+	    <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Email: </label>
+	    <input type="text" class="form-control"  placeholder="email" formControlName="email">
+	  </div>
+	  <button type="submit" class="btn btn-default">Update</button>	  
+	</form>
+</div>
+
+
+<div class="container" *ngIf="isAdding">
+	<h4>Add User</h4>
+	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<form #f="ngForm"  (ngSubmit)="onSubmit(f.value)">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">First Name:</label>
+	    <input type="text" class="form-control" placeholder="First Name" name="firstName" ngModel>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Last Name: </label>
+	    <input type="text" class="form-control" placeholder="Last Name" name="lastName" ngModel>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Email: </label>
+	    <input type="text" class="form-control"  placeholder="email" name="email" ngModel>
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>	  
+	</form>
+</div>
+
+
+<button class="btn btn-default pull-right" (click)="toggleView('addUser')">Add</button>
+<table class="table table-hover">
+	<tr>
+	  <th>First Name</th>
+	  <th>Last Name</th>
+	  <th>Email</th>
+	  <th>Actions</th>
+	</tr>
+	<tr *ngFor="let user of users; let i = index">
+		<td>{{user.firstName}} </td>
+		<td>{{user.lastName}} </td>
+		<td>{{user.email}} </td>
+		<td>
+			<button class="btn btn-default" (click)="viewDetails(user)">View Details</button>
+			<button class="btn btn-warning" (click)="edit(user,i)">Edit</button>
+			<button class="btn btn-danger" (click)="delete(i)">Delete</button>			
+		</td>
+	</tr>
+</table>
+
+

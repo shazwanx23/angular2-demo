@@ -38,8 +38,7 @@ export class HomeComponent{
 	}	
 
 	onSubmit(form: any){		
-		// this.users.push(form);
-		console.log(form);
+		this.users.push(form);	
 	}
 
 	viewDetails(user: User){		

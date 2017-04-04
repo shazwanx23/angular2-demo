@@ -21,41 +21,51 @@ CRUD COMPONENT
 <div class="container" *ngIf="isEditing">
 	<h4>Edit User</h4>
 	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
-	<form [formGroup]="form" (ngSubmit)="update(form.value)">
-	  <div class="form-group">
+	<form [formGroup]="form" (ngSubmit)="update(form)">
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.firstName.valid}">
 	    <label for="exampleInputEmail1">First Name:</label>
 	    <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+		 <div *ngIf="!form.controls.firstName.valid" class="alert alert-danger">First Name is Invalid</div>
 	  </div>
-	  <div class="form-group">
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.lastName.valid}">
 	    <label for="exampleInputPassword1">Last Name: </label>
 	    <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+	    <div *ngIf="!form.controls.lastName.valid" class="alert alert-danger">Last Name is Invalid</div>
 	  </div>
-	  <div class="form-group">
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.email.valid}">
 	    <label for="exampleInputPassword1">Email: </label>
-	    <input type="text" class="form-control"  placeholder="email" formControlName="email">
+	    <input type="email" class="form-control"  placeholder="email" formControlName="email">
+	    <div *ngIf="!form.controls.email.valid" class="alert alert-danger">Email is Invalid</div>
 	  </div>
-	  <button type="submit" class="btn btn-default">Update</button>	  
+	  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Update</button>	  
 	</form>
+	
 </div>
 
 
 <div class="container" *ngIf="isAdding">
 	<h4>Add User</h4>
 	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
-	<form #f="ngForm"  (ngSubmit)="onSubmit(f.value)">
-	  <div class="form-group">
+	<form [formGroup]="addUserForm"  (ngSubmit)="onSubmit(addUserForm.value)">
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.firstName.valid&& addUserForm.controls.firstName.touched) }">
 	    <label for="exampleInputEmail1">First Name:</label>
-	    <input type="text" class="form-control" placeholder="First Name" name="firstName" ngModel>
+	    <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+		 <div *ngIf="!addUserForm.controls.firstName.valid && addUserForm.controls.firstName.touched" class="alert alert-danger">First Name is Invalid</div>	
 	  </div>
-	  <div class="form-group">
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.lastName.valid&& addUserForm.controls.lastName.touched) }">
 	    <label for="exampleInputPassword1">Last Name: </label>
-	    <input type="text" class="form-control" placeholder="Last Name" name="lastName" ngModel>
+	    <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+	    <div *ngIf="!addUserForm.controls.lastName.valid && addUserForm.controls.lastName.touched" class="alert alert-danger">Last Name is Invalid</div>
 	  </div>
-	  <div class="form-group">
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.email.valid&& addUserForm.controls.email.touched) }">
 	    <label for="exampleInputPassword1">Email: </label>
-	    <input type="text" class="form-control"  placeholder="email" name="email" ngModel>
+	    <input type="text" class="form-control"  placeholder="email" formControlName="email">
+	    <div *ngIf="!addUserForm.controls.email.valid && addUserForm.controls.email.touched" class="alert alert-danger">Email is Invalid</div>
 	  </div>
-	  <button type="submit" class="btn btn-default">Submit</button>	  
+	  <button type="submit" class="btn btn-default" [disabled]="!addUserForm.valid" >Submit</button>	  
 	</form>
 </div>
 

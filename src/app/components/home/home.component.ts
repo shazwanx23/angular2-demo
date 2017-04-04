@@ -18,6 +18,7 @@ export class HomeComponent{
 	isEditing: Boolean;
 	isAdding: Boolean;	
 	form: FormGroup;
+	addUserForm: FormGroup;
 	editUserIndex:number = -1;
 
 	constructor(private fb: FormBuilder){
@@ -29,10 +30,16 @@ export class HomeComponent{
 		this.isViewing = false;
 		this.isEditing = false;
 		this.isAdding = false;		
+		this.addUserForm = this.fb.group({	      
+	        firstName: ['', Validators.required],
+	        lastName: ['', Validators.required],	      
+	    	email: ['', Validators.required]
+	    });
 	}	
 
 	onSubmit(form: any){		
-		this.users.push(form);
+		// this.users.push(form);
+		console.log(form);
 	}
 
 	viewDetails(user: User){		
@@ -43,9 +50,9 @@ export class HomeComponent{
 	edit(user: User, index: number){
 		this.toggleView('editUser');
 		this.form = this.fb.group({	      
-	        firstName: [user.firstName, Validators.minLength(2)],
-	        lastName: user.lastName,	      
-	    	email: user.email
+	        firstName: [user.firstName, Validators.required],
+	        lastName: [user.lastName, Validators.required],	      
+	    	email: [user.email, Validators.required]
 	    });
 	    this.editUserIndex = index;	    
 	}
@@ -56,7 +63,7 @@ export class HomeComponent{
 
 	update(form: any){
 		console.log(form);		
-		this.users[this.editUserIndex] = form;
+		this.users[this.editUserIndex] = form.value;
 	}
 
 	resetState(){

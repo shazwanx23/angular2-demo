@@ -1,0 +1,122 @@
+CRUD-HTTP COMPONENT
+
+<div class="container well" *ngIf="user && isViewing">
+<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<div class="row" >
+		<div class="col-md-3"><label>ID:</label></div>
+		<div class="col-md-7">{{user.id}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Name:</label></div>
+		<div class="col-md-7">{{user.name}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Username:</label></div>
+		<div class="col-md-7">{{user.username}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Email:</label></div>
+		<div class="col-md-7">{{user.email}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Address:</label></div>
+		<div class="col-md-7">
+			{{user.address.street}},
+			{{user.address.suite}},
+			{{user.address.city}},
+			{{user.address.zipcode}}
+		</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Phone:</label></div>
+		<div class="col-md-7">{{user.phone}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Website:</label></div>
+		<div class="col-md-7">{{user.website}}</div>
+	</div>	
+	<div class="row" >
+		<div class="col-md-3"><label>Company:</label></div>
+		<div class="col-md-7">
+			{{user.company.name}}, 
+			{{user.company.catchPhrase}}, 
+			{{user.company.bs}}, 
+		</div>
+	</div>	
+</div>
+
+<div class="container" *ngIf="isEditing">
+	<h4>Edit User</h4>
+	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<form [formGroup]="form" (ngSubmit)="update(form)">
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.username.valid}">
+	    <label for="exampleInputEmail1">Username:</label>
+	    <input type="text" class="form-control" placeholder="First Name" formControlName="username">
+		 <div *ngIf="!form.controls.username.valid" class="alert alert-danger">First Name is Invalid</div>
+	  </div>
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.email.valid}">
+	    <label for="exampleInputPassword1">Email: </label>
+	    <input type="text" class="form-control" placeholder="Last Name" formControlName="email">
+	    <div *ngIf="!form.controls.email.valid" class="alert alert-danger">Last Name is Invalid</div>
+	  </div>
+	  <div class="form-group" [ngClass]="{'has-error' : !form.controls.phone.valid}">
+	    <label for="exampleInputPassword1">Phone: </label>
+	    <input type="email" class="form-control"  placeholder="email" formControlName="phone">
+	    <div *ngIf="!form.controls.phone.valid" class="alert alert-danger">Email is Invalid</div>
+	  </div>
+	  <button type="submit" class="btn btn-default" [disabled]="!form.valid">Update</button>	  
+	</form>
+	
+</div>
+
+
+<div class="container" *ngIf="isAdding">
+	<h4>Add User</h4>
+	<button class="btn btn-default pull-right" (click)="resetState()">Close</button>
+	<form [formGroup]="addUserForm"  (ngSubmit)="onSubmit(addUserForm.value)">
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.username.valid&& addUserForm.controls.username.touched) }">
+	    <label for="exampleInputEmail1">Username:</label>
+	    <input type="text" class="form-control" placeholder="First Name" formControlName="username">
+		 <div *ngIf="!addUserForm.controls.username.valid && addUserForm.controls.username.touched" class="alert alert-danger">Username is Invalid</div>	
+	  </div>
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.email.valid&& addUserForm.controls.email.touched) }">
+	    <label for="exampleInputPassword1">Email: </label>
+	    <input type="text" class="form-control" placeholder="Last Name" formControlName="email">
+	    <div *ngIf="!addUserForm.controls.email.valid && addUserForm.controls.email.touched" class="alert alert-danger">Email is Invalid</div>
+	  </div>
+	  <div class="form-group" 
+	  	[ngClass]="{'has-error' : (!addUserForm.controls.phone.valid&& addUserForm.controls.phone.touched) }">
+	    <label for="exampleInputPassword1">Phone: </label>
+	    <input type="text" class="form-control"  placeholder="phone" formControlName="phone">
+	    <div *ngIf="!addUserForm.controls.phone.valid && addUserForm.controls.phone.touched" class="alert alert-danger">Phone is Invalid</div>
+	  </div>
+	  <button type="submit" class="btn btn-default" [disabled]="!addUserForm.valid" >Submit</button>	  
+	</form>
+</div>
+
+
+<button class="btn btn-default pull-right" (click)="toggleView('addUser')">Add</button>
+<table class="table table-hover">
+	<tr>
+	  <th>ID</th>
+	  <th>Username</th>
+	  <th>Email</th>
+	  <th>Phone</th>
+	  <th>Actions</th>	  
+	</tr>
+	<tr *ngFor="let user of users; let i = index">
+		<td>{{user.id}} </td>
+		<td>{{user.username}} </td>
+		<td>{{user.email}} </td>
+		<td>{{user.phone}} </td>
+		<td>
+			<button class="btn btn-default" (click)="viewDetails(user)">View Details</button>
+			<button class="btn btn-warning" (click)="edit(user,i)">Edit</button>
+			<button class="btn btn-danger" (click)="delete(i)">Delete</button>			
+		</td>
+	</tr>
+</table>
+
+

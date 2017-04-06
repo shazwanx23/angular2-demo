@@ -10,6 +10,7 @@ import { ListComponent }  from './components/list/list.component';
 import { ViewComponent }  from './components/view/view.component';
 import { PostComponent }  from './components/post/post.component';
 import { ViewPostComponent }  from './components/view-post/view-post.component';
+import { CrudHttpComponent }  from './components/crud-http/crud-http.component';
 
 import { PostService } from './services/post/post.service';
 
@@ -28,6 +29,9 @@ const routes: Routes = [
   },
   {
     path: 'post/:id', component: ViewPostComponent
+  },
+  {
+    path: 'crud-http', component: CrudHttpComponent
   }
 ]
 
@@ -43,7 +47,8 @@ const routes: Routes = [
             ListComponent,
             ViewComponent,
             PostComponent,
-            ViewPostComponent ],
+            ViewPostComponent,
+            CrudHttpComponent ],
   providers: [PostService],
   bootstrap:    [ AppComponent ]
 })

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 interface User {
-	firstName: String;
-	lastName: String;
-	email: String;
+	firstName: string;
+	lastName: string;
+	email: string;
 }
 @Component({
 	moduleId: module.id,
